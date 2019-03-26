@@ -1,0 +1,99 @@
+
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>Welcome to {{ title }}!</h1>
+</div>
+<h2>Here are some links to help you start:</h2>
+<!-- Structural Directives - For loop -->
+<div>
+  Your Skills:
+  <select name="" id="">
+    <option *ngFor="let skill of skills" value="">
+      {{ skill }}
+    </option>
+  </select>
+</div>
+
+<ul style="list-style: none">
+  <li *ngFor="let course of courses; even as isEven">
+    {{ course.name }} <span *ngIf="isEven">(EVENT)</span>
+  </li>
+</ul>
+<!-- Structural Directives - If statement -->
+<div *ngIf="digits.length > 0">
+  Have digits
+</div>
+<div *ngIf="digits.length == 0">
+  No digits here
+</div>
+
+<ng-container *ngIf="digits.length == 1; else elseTemplate">
+  Have Digits here
+</ng-container>
+<ng-template #elseTemplate>
+  No digits yet
+</ng-template>
+
+<!-- Hiden properties -->
+<div [hidden]="digits.length == 0">
+  List of digits
+</div>
+<div [hidden]="digits.lenght > 0">
+  No list digits here
+</div>
+
+<!-- ngSwitchCase -->
+<br />
+<ul>
+  <li >
+    <a (click)="ViewMode = 'map'">Map View</a>
+  </li>
+  <li>
+    <a (click)="ViewMode = 'list'">List View</a>
+  </li>
+</ul>
+
+<button (click)="onAdd()">Add</button>
+<!-- ngSwitch - Adds or removes templates (displaying or hiding views) when the next match expression matches the switch expression. -->
+<div [ngSwitch]="ViewMode">
+  <div *ngSwitchCase="'map'">Map View Content</div>
+  <div *ngSwitchCase="'list'">List View Content</div>
+  <div *ngSwitchDefault>Otherwise</div>
+</div>
+
+<!-- <span [ngSwitch]="">
+<p *ngSwitchCase="true">
+
+</p>
+<p *ngSwitchCase="false">
+
+</p>
+<p *ngSwitchDefault>
+
+</p>
+</span> -->
+
+<!-- ngStyle -->
+<!-- <div [ngStyle]="{'background-color':'green'}"> Hello world</div> -->
+<br />
+<h4>NgStyle</h4>
+<ul *ngFor="let person of people">
+  <li [ngStyle]="{ color: getColor(person.country) }">
+    {{ person.name }} ({{ person.country }})
+  </li>
+</ul>
+<!-- ngClass -->
+
+<h4>NgClass</h4>
+<ul *ngFor="let person of people">
+  <li
+    [ngClass]="{
+      'text-success': person.country === 'UK',
+      'text-primary': person.country === 'USA',
+      'text-danger': person.country === 'HK'
+    }"
+  >
+    {{ person.name }} ({{ person.country }})
+  </li>
+</ul>
+<router-outlet></router-outlet>
